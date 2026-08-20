@@ -12,9 +12,19 @@ async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected.");
+
+    return {
+        success:  true,
+        message: "MongoDB connected."
+    };
   } catch (error) {
     console.log("MongoDB connection failed.");
     console.log(error.message);
+
+    return {
+        success: false,
+        message: error.message
+    };
   }
 }
 
@@ -49,17 +59,11 @@ app.get("/", (req, res) => {
 // });
 
 app.get("/db-test", async (req, res) => {
-  try {
-    return res.status(200).json({
-      success: true,
-      mongoReadyState: mongoose.connection.readyState,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+    const result = await connectDB();
+    if(result.success){
+        return res.status(200).json(result);
+    }
+    return res.status(500).json(result);
 });
 
 app.post("/register", async (req, res) => {
