@@ -135,4 +135,12 @@ app.post("/login", async(req, res)=>{
     }
 });
 
-app.listen(3500, () => console.log("Server Started."));
+// app.listen(3500, () => console.log("Server Started."));
+
+
+
+const PORT = process.env.PORT || 3500;
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
