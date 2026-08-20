@@ -30,6 +30,24 @@ app.get("/", (req, res) => {
   });
 });
 
+
+app.get("/db-test", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+
+    return res.status(200).json({
+      success: true,
+      message: "Backend and MongoDB are connected."
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "MongoDB connection failed.",
+      error: error.message
+    });
+  }
+});
+
 app.post("/register", async (req, res) => {
   try {
     //validating employee data
