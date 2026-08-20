@@ -4,7 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 
-const Employee = require("./models/Employee");
+const Employee = require("./models/employee");
 
 const app = express();
 
