@@ -24,7 +24,10 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  return res.send("welcome to the server.");
+  return res.status(200).json({
+    success: true,
+    message: "The backend is live."
+  });
 });
 
 app.post("/register", async (req, res) => {
